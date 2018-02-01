@@ -25,7 +25,7 @@ struct Options {
     #[structopt(
         short = "e",
         long = "error-correction",
-        help = "specifies the error correction code to use",
+        help = "specifies the error correction level to use",
         parse(try_from_str = "ecc_from_str"),
         default_value = "high"
     )]

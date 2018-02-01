@@ -2,7 +2,7 @@
 
 `qrcli` is a tool to generate QR codes on the command line and display
 them there without the need for an X server. All error correction
-modes are supported: `low`, `medium`, `quartile` and `high`.
+levels are supported: `low`, `medium`, `quartile` and `high`.
 
 ## Usage
 ```
@@ -18,7 +18,7 @@ FLAGS:
     -V, --version    Prints version information
 
 OPTIONS:
-    -e, --error-correction <coding>    specifies the error correction code to use [default: high]
+    -e, --error-correction <coding>    specifies the error correction level to use [default: high]
 
 ARGS:
     <text>    text that will be encoded
