@@ -4,6 +4,8 @@ extern crate structopt;
 extern crate structopt_derive;
 
 use std::process::exit;
+use std::io::{stdout, Write};
+
 use qrcodegen::{QrCode, QrCodeEcc};
 use structopt::StructOpt;
 
@@ -44,17 +46,19 @@ fn main() {
         exit(-1);
     });
 
-    println!();
+    let stdout = stdout();
+    let mut stdout_handle = stdout.lock();
+    writeln!(stdout_handle);
     for y in 0 .. qr.size() {
-        print!(" ");
+        write!(stdout_handle, " ");
         for x in 0 .. qr.size() {
-            print!("{}", if qr.get_module(x, y) {
+            write!(stdout_handle, "{}", if qr.get_module(x, y) {
                 "██"
             } else {
                 "  "
             });
         }
-        println!();
+        writeln!(stdout_handle);
     }
-    println!();
+    writeln!(stdout_handle);
 }
