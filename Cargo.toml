@@ -1,0 +1,9 @@
+[package]
+name = "qrcli-rs"
+version = "0.1.0"
+authors = ["Sebastian Geisler <sgeisler@wh2.tu-dresden.de>"]
+
+[dependencies]
+qrcodegen = "1.2.1"
+structopt = "0.1.6"
+structopt-derive = "0.1.6"
