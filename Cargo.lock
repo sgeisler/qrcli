@@ -58,7 +58,7 @@ dependencies = [
 
 [[package]]
 name = "qrcli-rs"
-version = "0.2.1"
+version = "0.3.0"
 dependencies = [
  "qrcodegen 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "structopt 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",

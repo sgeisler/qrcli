@@ -35,6 +35,13 @@ struct Options {
         name = "text"
     )]
     text: String,
+
+    #[structopt(
+        short = "b",
+        long = "bech32",
+        help = "treat text as bech32 (save space by transforming it to all uppercase)",
+    )]
+    bech32: bool,
 }
 
 fn print_qr(qr: &QrCode) -> std::io::Result<()> {
@@ -60,7 +67,13 @@ fn print_qr(qr: &QrCode) -> std::io::Result<()> {
 fn main() {
     let options = Options::from_args();
 
-    let qr = QrCode::encode_text(&options.text, options.coding).unwrap_or_else(|_| {
+    let text = if options.bech32 {
+        options.text.to_uppercase()
+    } else {
+        options.text
+    };
+
+    let qr = QrCode::encode_text(&text, options.coding).unwrap_or_else(|_| {
         eprintln!("Could not encode given data as QR code (it's probably too large).");
         exit(-1);
     });
