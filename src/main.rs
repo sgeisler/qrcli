@@ -1,6 +1,5 @@
 extern crate qrcodegen;
 extern crate structopt;
-#[macro_use]
 extern crate structopt_derive;
 
 use std::process::exit;
@@ -38,27 +37,36 @@ struct Options {
     text: String,
 }
 
-fn main() {
-    let options = Options::from_args();
-
-    let qr = QrCode::encode_text(&options.text, options.coding).unwrap_or_else(|| {
-        eprintln!("Could not encode given data as QR code (it's probably too large).");
-        exit(-1);
-    });
-
+fn print_qr(qr: &QrCode) -> std::io::Result<()> {
     let stdout = stdout();
     let mut stdout_handle = stdout.lock();
-    writeln!(stdout_handle);
+    writeln!(stdout_handle)?;
     for y in 0 .. qr.size() {
-        write!(stdout_handle, " ");
+        write!(stdout_handle, " ")?;
         for x in 0 .. qr.size() {
             write!(stdout_handle, "{}", if qr.get_module(x, y) {
                 "██"
             } else {
                 "  "
-            });
+            })?;
         }
-        writeln!(stdout_handle);
+        writeln!(stdout_handle)?;
     }
-    writeln!(stdout_handle);
+    writeln!(stdout_handle)?;
+
+    Ok(())
+}
+
+fn main() {
+    let options = Options::from_args();
+
+    let qr = QrCode::encode_text(&options.text, options.coding).unwrap_or_else(|_| {
+        eprintln!("Could not encode given data as QR code (it's probably too large).");
+        exit(-1);
+    });
+
+    print_qr(&qr).unwrap_or_else(|e| {
+        eprintln!("IO error: {:?}", e);
+        exit(-2);
+    });
 }

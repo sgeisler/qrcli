@@ -3,16 +3,18 @@ name = "qrcli-rs"
 description = "command line qr code generator"
 keywords = ["qr", "encode", "cli"]
 categories = ["command-line-utilities"]
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Sebastian Geisler <sgeisler@wh2.tu-dresden.de>"]
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/sgeisler/qrcli"
+edition = "2018"
 
 [[bin]]
 name = "qrcli"
+path = "src/main.rs"
 
 [dependencies]
 qrcodegen = "1.2.1"
-structopt = "0.1.6"
-structopt-derive = "0.1.6"
+structopt = "0.2"
+structopt-derive = "0.2"
